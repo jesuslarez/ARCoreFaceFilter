@@ -20,6 +20,7 @@
 
 namespace GoogleARCore.Examples.AugmentedFaces
 {
+    using System;
     using System.Collections.Generic;
     using GoogleARCore;
     using UnityEngine;
@@ -27,6 +28,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
     /// <summary>
     /// Helper component to update face regions.
     /// </summary>
+    [RequireComponent(typeof(Camera))]
     [ExecuteInEditMode]
     public class ARCoreAugmentedFaceRig : MonoBehaviour
     {
@@ -47,6 +49,11 @@ namespace GoogleARCore.Examples.AugmentedFaces
         private List<AugmentedFace> _augmentedFaceList = new List<AugmentedFace>();
         private Dictionary<AugmentedFaceRegion, Transform> _regionGameObjects =
             new Dictionary<AugmentedFaceRegion, Transform>();
+
+        public List<Vector3> vertices;
+        public List<Vector2> facecoordinates;
+        public GameObject _camera;
+
 
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
@@ -70,6 +77,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
         /// </summary>
         public void Awake()
         {
+            
             _augmentedFaceList = new List<AugmentedFace>();
             InitializeFaceRegions();
         }
@@ -100,7 +108,41 @@ namespace GoogleARCore.Examples.AugmentedFaces
             }
 
             UpdateRegions();
+            foreach (AugmentedFace face in _augmentedFaceList)
+            {
+                face.GetVertices(vertices);
+
+
+            }
+            Vector3 noseTip = vertices[0];
+            Vector3 cameraTransform = _camera.GetComponent<Camera>().transform.forward;
+            Vector3 vectorialProduct = Vector3.Cross(cameraTransform, noseTip);
+            _ = vectorialProduct.magnitude;
+            Console.WriteLine("Consola:");
+
         }
+        /*private Boolean CheckForMouthOpen()
+        {
+            
+            foreach (AugmentedFace face in _augmentedFaceList)
+            {
+                face.GetVertices(vertices);
+
+
+            }
+            Vector3 noseTip = vertices[0];
+            Vector3 lip = vertices[14];
+            double distance = Vector3.Distance(noseTip, lip);
+            double distanceX = noseTip.x - lip.x;
+            if (distance > 0.03f)
+            {
+                return true;
+            }
+
+            return false;
+            
+
+        }*/
 
         /// <summary>
         /// Method to initialize face region gameobject if not present.

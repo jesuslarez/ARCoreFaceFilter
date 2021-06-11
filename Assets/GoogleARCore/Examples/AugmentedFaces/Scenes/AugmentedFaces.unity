@@ -296,6 +296,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoBind: 1
+  vertices: []
+  facecoordinates: []
+  _camera: {fileID: 0}
 --- !u!1 &197346195
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +436,12 @@ Transform:
   m_Father: {fileID: 1626910333}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1237857364 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1637996540812124, guid: c10877f7cd5764de18d46d7b777d1faa,
+    type: 3}
+  m_PrefabInstance: {fileID: 96447268}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1294682581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -440,6 +449,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1626910333}
     m_Modifications:
+    - target: {fileID: -8825110405995067793, guid: ac1552c0f56c62340a73902894ea8a90,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac1552c0f56c62340a73902894ea8a90,
         type: 3}
       propertyPath: m_RootOrder
@@ -495,10 +509,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 377835631865979511, guid: ac1552c0f56c62340a73902894ea8a90,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ac1552c0f56c62340a73902894ea8a90,
         type: 3}
       propertyPath: m_Name
       value: Human_Skull_-_Decimated_Hi-Res_Rigged
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ac1552c0f56c62340a73902894ea8a90,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac1552c0f56c62340a73902894ea8a90, type: 3}
@@ -545,7 +569,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100008, guid: 909f7e3faf16c4c1983434120ad9d7f1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 909f7e3faf16c4c1983434120ad9d7f1, type: 3}
       propertyPath: m_RootOrder
@@ -623,3 +647,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoBind: 1
+  vertices: []
+  facecoordinates: []
+  _camera: {fileID: 1237857364}
