@@ -46,14 +46,18 @@ namespace GoogleARCore.Examples.AugmentedFaces
             };
 
         private AugmentedFace _augmentedFace;
-        private List<AugmentedFace> _augmentedFaceList = new List<AugmentedFace>();
+        private List<AugmentedFace> augmentedFaceList = new List<AugmentedFace>();
         private Dictionary<AugmentedFaceRegion, Transform> _regionGameObjects =
             new Dictionary<AugmentedFaceRegion, Transform>();
 
         public List<Vector3> vertices;
         public List<Vector2> facecoordinates;
         public GameObject _camera;
-
+        public GameObject cubePrefab;
+        private Boolean labelsInitialized = false;
+        private float x = -0.05f;
+        private float y = 0;
+        private float z = 0.15f;
 
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
@@ -78,7 +82,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
         public void Awake()
         {
             
-            _augmentedFaceList = new List<AugmentedFace>();
+            augmentedFaceList = new List<AugmentedFace>();
             InitializeFaceRegions();
         }
 
@@ -94,11 +98,11 @@ namespace GoogleARCore.Examples.AugmentedFaces
 
             if (AutoBind)
             {
-                _augmentedFaceList.Clear();
-                Session.GetTrackables<AugmentedFace>(_augmentedFaceList, TrackableQueryFilter.All);
-                if (_augmentedFaceList.Count != 0)
+                augmentedFaceList.Clear();
+                Session.GetTrackables<AugmentedFace>(augmentedFaceList, TrackableQueryFilter.All);
+                if (augmentedFaceList.Count != 0)
                 {
-                    _augmentedFace = _augmentedFaceList[0];
+                    _augmentedFace = augmentedFaceList[0];
                 }
             }
 
@@ -108,41 +112,52 @@ namespace GoogleARCore.Examples.AugmentedFaces
             }
 
             UpdateRegions();
-            foreach (AugmentedFace face in _augmentedFaceList)
+            UpdateLabels();
+
+        }
+
+
+        private void UpdateLabels()
+        {
+            foreach (AugmentedFace face in augmentedFaceList)
             {
                 face.GetVertices(vertices);
-
-
+                if (!labelsInitialized)
+                {
+                    // Mover esto al start()
+                    labelsInitialized = true;
+                    break;
+                }
+                //reposisionate 
             }
             Vector3 noseTip = vertices[0];
             Vector3 cameraTransform = _camera.GetComponent<Camera>().transform.forward;
             Vector3 vectorialProduct = Vector3.Cross(cameraTransform, noseTip);
             _ = vectorialProduct.magnitude;
-            Console.WriteLine("Consola:");
-
         }
+
         /*private Boolean CheckForMouthOpen()
-        {
-            
-            foreach (AugmentedFace face in _augmentedFaceList)
-            {
-                face.GetVertices(vertices);
+{
+
+   foreach (AugmentedFace face in augmentedFaceList)
+   {
+       face.GetVertices(vertices);
 
 
-            }
-            Vector3 noseTip = vertices[0];
-            Vector3 lip = vertices[14];
-            double distance = Vector3.Distance(noseTip, lip);
-            double distanceX = noseTip.x - lip.x;
-            if (distance > 0.03f)
-            {
-                return true;
-            }
+   }
+   Vector3 noseTip = vertices[0];
+   Vector3 lip = vertices[14];
+   double distance = Vector3.Distance(noseTip, lip);
+   double distanceX = noseTip.x - lip.x;
+   if (distance > 0.03f)
+   {
+       return true;
+   }
 
-            return false;
-            
+   return false;
 
-        }*/
+
+}*/
 
         /// <summary>
         /// Method to initialize face region gameobject if not present.

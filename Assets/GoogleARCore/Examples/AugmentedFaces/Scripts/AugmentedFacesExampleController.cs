@@ -67,15 +67,26 @@ namespace GoogleARCore.Examples.AugmentedFaces
             if (_tempAugmentedFaces.Count == 0)
             {
                 Screen.sleepTimeout = SleepTimeout.SystemSetting;
+                SetActiveAllChildren(FaceAttachment.transform, false);
                 FaceAttachment.SetActive(false);
+
             }
             else
             {
                 Screen.sleepTimeout = SleepTimeout.NeverSleep;
                 FaceAttachment.SetActive(true);
+                SetActiveAllChildren(FaceAttachment.transform, true);
             }
         }
+        private void SetActiveAllChildren(Transform transform, bool value)
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(value);
 
+                SetActiveAllChildren(child, value);
+            }
+        }
         /// <summary>
         /// Check and update the application lifecycle.
         /// </summary>
