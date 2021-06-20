@@ -53,6 +53,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
         public List<Vector3> vertices;
         public List<Vector2> facecoordinates;
         public GameObject _camera;
+        //refactor camera reference
         public GameObject cubePrefab;
         private Boolean labelsInitialized = false;
         private float x = -0.05f;

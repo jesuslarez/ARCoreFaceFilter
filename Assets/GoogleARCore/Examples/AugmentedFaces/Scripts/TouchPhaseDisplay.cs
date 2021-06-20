@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class NewBehaviourScript : MonoBehaviour
+public class TouchPhaseDisplay : MonoBehaviour
 {
 
     public Text phaseDisplayText;
     private Touch theTouch;
     private float timeTouchEnded;
     private float displayTime = 0.5f;
+    private Vector2[] touches = new Vector2[5];
+    private RaycastHit2D hit;
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -19,21 +21,19 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.touchCount > 0)
         {
             theTouch = Input.GetTouch(0);
-            if (theTouch.phase == TouchPhase.Ended)
+            foreach (Touch t in Input.touches)
             {
-                phaseDisplayText.text = theTouch.phase.ToString();
-                timeTouchEnded = Time.time;
-
-            }
-
-            else if (Time.time - timeTouchEnded > displayTime)
-            {
-                phaseDisplayText.text = theTouch.phase.ToString();
-                timeTouchEnded = Time.time;
-            }
-            else if (Time.time - timeTouchEnded > displayTime)
-            {
-                phaseDisplayText = "";
+                touches[t.fingerId] = Camera.main.ScreenToWorldPoint(Input.GetTouch(t.fingerId).position);
+                if (Input.GetTouch(t.fingerId).phase == TouchPhase.Began)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(theTouch.position);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100))
+                    {
+                        print("Hit something!");
+                        string name1 = hit.collider.name;
+                    }
+                }
             }
         }
     }
