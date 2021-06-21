@@ -28,8 +28,6 @@ namespace GoogleARCore.Examples.AugmentedFaces
     /// <summary>
     /// Helper component to update face regions.
     /// </summary>
-    [RequireComponent(typeof(Camera))]
-    [ExecuteInEditMode]
     public class ARCoreAugmentedFaceRig : MonoBehaviour
     {
         /// <summary>
@@ -50,15 +48,9 @@ namespace GoogleARCore.Examples.AugmentedFaces
         private Dictionary<AugmentedFaceRegion, Transform> _regionGameObjects =
             new Dictionary<AugmentedFaceRegion, Transform>();
 
-        public List<Vector3> vertices;
-        public List<Vector2> facecoordinates;
-        public GameObject _camera;
-        //refactor camera reference
-        public GameObject cubePrefab;
-        private Boolean labelsInitialized = false;
-        private float x = -0.05f;
-        private float y = 0;
-        private float z = 0.15f;
+        private List<Vector3> vertices;
+        private List<Vector2> facecoordinates;
+        private List<GameObject> labels;
 
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
@@ -86,6 +78,14 @@ namespace GoogleARCore.Examples.AugmentedFaces
             augmentedFaceList = new List<AugmentedFace>();
             InitializeFaceRegions();
         }
+        public void Start()
+        {
+            labels = new List<GameObject>();
+            labels.Add(GameObject.Find("Label1"));
+            labels.Add(GameObject.Find("Label2"));
+            labels.Add(GameObject.Find("Label3"));
+            labels.Add(GameObject.Find("Label4"));
+        }
 
         /// <summary>
         /// The Unity Update() method.
@@ -111,7 +111,6 @@ namespace GoogleARCore.Examples.AugmentedFaces
             {
                 return;
             }
-
             UpdateRegions();
             UpdateLabels();
 
@@ -120,45 +119,28 @@ namespace GoogleARCore.Examples.AugmentedFaces
 
         private void UpdateLabels()
         {
-            foreach (AugmentedFace face in augmentedFaceList)
+            foreach (GameObject label in labels)
             {
-                face.GetVertices(vertices);
-                if (!labelsInitialized)
+                Vector3 labelForward = label.transform.forward;
+                Vector3 cameraForward = Camera.main.transform.forward;
+                Vector3 product = Vector3.Cross(cameraForward, labelForward);
+                float angle = Vector3.Angle(cameraForward, labelForward);
+
+                if (angle > 25f && product.y > 0f && labels.IndexOf(label) % 2 == 0)
                 {
-                    // Mover esto al start()
-                    labelsInitialized = true;
-                    break;
+                    label.SetActive(false);
                 }
-                //reposisionate 
+                else if (angle > 25f && product.y < 0f && labels.IndexOf(label) % 2 != 0)
+                {
+                    label.SetActive(false);
+                }
+                else
+                {
+                    label.SetActive(true);
+                }
             }
-            Vector3 noseTip = vertices[0];
-            Vector3 cameraTransform = _camera.GetComponent<Camera>().transform.forward;
-            Vector3 vectorialProduct = Vector3.Cross(cameraTransform, noseTip);
-            _ = vectorialProduct.magnitude;
+
         }
-
-        /*private Boolean CheckForMouthOpen()
-{
-
-   foreach (AugmentedFace face in augmentedFaceList)
-   {
-       face.GetVertices(vertices);
-
-
-   }
-   Vector3 noseTip = vertices[0];
-   Vector3 lip = vertices[14];
-   double distance = Vector3.Distance(noseTip, lip);
-   double distanceX = noseTip.x - lip.x;
-   if (distance > 0.03f)
-   {
-       return true;
-   }
-
-   return false;
-
-
-}*/
 
         /// <summary>
         /// Method to initialize face region gameobject if not present.

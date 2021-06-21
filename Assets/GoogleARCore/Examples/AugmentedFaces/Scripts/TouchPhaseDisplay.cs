@@ -30,7 +30,6 @@ public class TouchPhaseDisplay : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 100))
                     {
-                        print("Hit something!");
                         string name1 = hit.collider.name;
                     }
                 }
