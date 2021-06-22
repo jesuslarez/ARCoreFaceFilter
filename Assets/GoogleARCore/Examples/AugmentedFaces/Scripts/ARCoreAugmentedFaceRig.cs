@@ -81,10 +81,10 @@ namespace GoogleARCore.Examples.AugmentedFaces
         public void Start()
         {
             labels = new List<GameObject>();
-            labels.Add(GameObject.Find("Label1"));
-            labels.Add(GameObject.Find("Label2"));
-            labels.Add(GameObject.Find("Label3"));
-            labels.Add(GameObject.Find("Label4"));
+            labels.Add(GameObject.Find("LabelPrefab1"));
+            labels.Add(GameObject.Find("LabelPrefab2"));
+            labels.Add(GameObject.Find("LabelPrefab3"));
+            labels.Add(GameObject.Find("LabelPrefab4"));
         }
 
         /// <summary>
@@ -124,22 +124,35 @@ namespace GoogleARCore.Examples.AugmentedFaces
                 Vector3 labelForward = label.transform.forward;
                 Vector3 cameraForward = Camera.main.transform.forward;
                 Vector3 product = Vector3.Cross(cameraForward, labelForward);
+                if (product.y == 0.0f)
+                {
+                    break;
+                }
                 float angle = Vector3.Angle(cameraForward, labelForward);
-
+                print(angle);
                 if (angle > 25f && product.y > 0f && labels.IndexOf(label) % 2 == 0)
                 {
-                    label.SetActive(false);
+                    SetActiveAllChildren(label.transform, false);
                 }
                 else if (angle > 25f && product.y < 0f && labels.IndexOf(label) % 2 != 0)
                 {
-                    label.SetActive(false);
+                    SetActiveAllChildren(label.transform, false);
                 }
                 else
                 {
-                    label.SetActive(true);
+                    SetActiveAllChildren(label.transform, true);
                 }
             }
 
+        }
+        private void SetActiveAllChildren(Transform transform, bool value)
+        {
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(value);
+
+                SetActiveAllChildren(child, value);
+            }
         }
 
         /// <summary>

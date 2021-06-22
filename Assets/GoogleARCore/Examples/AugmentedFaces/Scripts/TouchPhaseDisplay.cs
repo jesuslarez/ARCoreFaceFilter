@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class TouchPhaseDisplay : MonoBehaviour
 {
 
-    public Text phaseDisplayText;
     private Touch theTouch;
     private float timeTouchEnded;
     private float displayTime = 0.5f;
@@ -30,7 +29,7 @@ public class TouchPhaseDisplay : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 100))
                     {
-                        string name1 = hit.collider.name;
+                        Application.OpenURL("https://en.wikipedia.org/wiki/Skull");
                     }
                 }
             }
