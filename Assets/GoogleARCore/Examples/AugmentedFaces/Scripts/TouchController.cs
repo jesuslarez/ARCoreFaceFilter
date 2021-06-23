@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class TouchPhaseDisplay : MonoBehaviour
+public class TouchController : MonoBehaviour
 {
 
     private Touch theTouch;
