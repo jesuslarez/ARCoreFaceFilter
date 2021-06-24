@@ -52,6 +52,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
         private List<Vector2> facecoordinates;
         private List<GameObject> labels;
 
+
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
         /// </summary>
@@ -81,10 +82,8 @@ namespace GoogleARCore.Examples.AugmentedFaces
         public void Start()
         {
             labels = new List<GameObject>();
-            labels.Add(GameObject.Find("LabelPrefab1"));
-            labels.Add(GameObject.Find("LabelPrefab2"));
-            labels.Add(GameObject.Find("LabelPrefab3"));
-            labels.Add(GameObject.Find("LabelPrefab4"));
+            labels.Add(GameObject.Find("LabelPrefab (1)"));
+            labels.Add(GameObject.Find("LabelPrefab (2)"));
         }
 
         /// <summary>
