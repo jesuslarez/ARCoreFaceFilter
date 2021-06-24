@@ -24,10 +24,11 @@ public class TouchController : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
-         headerSprite = GameObject.Find("HeaderLabel").transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        headerSprite = GameObject.Find("HeaderLabel").transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
     }
     void Update()
     {
+        
         if (Input.touchCount > 0)
         {
             theTouch = Input.GetTouch(0);
@@ -42,6 +43,7 @@ public class TouchController : MonoBehaviour
                     {
                         if (CheckCollider(hit))
                         {
+                            GameObject.Find("HeaderLabel").transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = headerSprite;
                             return;
                         }
                         if (hit.transform.parent.name.Equals("HeaderLabel"))
