@@ -51,8 +51,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
         private List<Vector3> vertices;
         private List<Vector2> facecoordinates;
         private List<GameObject> labels;
-
-        public Animator animator;
+        private Animator animator;
 
 
         /// <summary>
@@ -79,6 +78,8 @@ namespace GoogleARCore.Examples.AugmentedFaces
         {
             
             augmentedFaceList = new List<AugmentedFace>();
+            animator = gameObject.GetComponent<Animator>();
+            vertices = new List<Vector3>();
             InitializeFaceRegions();
         }
         public void Start()
@@ -114,9 +115,9 @@ namespace GoogleARCore.Examples.AugmentedFaces
             }
             UpdateRegions();
             UpdateLabels();
-            if (animator)
+            if (animator != null)
             {
-                animator.SetBool("open", CheckForMouthOpen());
+                animator.SetBool("MouthOpen", CheckForMouthOpen());
             }
             
         }
@@ -127,10 +128,10 @@ namespace GoogleARCore.Examples.AugmentedFaces
             {
                 face.GetVertices(vertices);
             }
+            Vector3 upperLip = vertices[0];
             Vector3 lowerLip = vertices[14];
-            Vector3 upperLip = vertices[18];
-
-            if (Vector3.Distance(lowerLip , upperLip) > 0.3f)
+            double distance = Vector3.Distance(upperLip, lowerLip);
+            if (Vector3.Distance(upperLip , lowerLip) > 0.03f)
             {
                 return true;
             }
