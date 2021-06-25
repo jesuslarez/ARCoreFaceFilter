@@ -52,6 +52,8 @@ namespace GoogleARCore.Examples.AugmentedFaces
         private List<Vector2> facecoordinates;
         private List<GameObject> labels;
 
+        public Animator animator;
+
 
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
@@ -112,10 +114,28 @@ namespace GoogleARCore.Examples.AugmentedFaces
             }
             UpdateRegions();
             UpdateLabels();
-
+            if (animator)
+            {
+                animator.SetBool("open", CheckForMouthOpen());
+            }
+            
         }
 
+        private bool CheckForMouthOpen()
+        {
+            foreach (AugmentedFace face in augmentedFaceList)
+            {
+                face.GetVertices(vertices);
+            }
+            Vector3 lowerLip = vertices[14];
+            Vector3 upperLip = vertices[18];
 
+            if (Vector3.Distance(lowerLip , upperLip) > 0.3f)
+            {
+                return true;
+            }
+            return false;
+        }
         private void UpdateLabels()
         {
             foreach (GameObject label in labels)
