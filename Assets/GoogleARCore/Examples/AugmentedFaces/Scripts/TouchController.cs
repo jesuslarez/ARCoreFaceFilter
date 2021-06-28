@@ -50,10 +50,6 @@ public class TouchController : MonoBehaviour
                         {
                             CheckHeaderLabel(hit);
                         }
-                        else
-                        {
-                            Application.OpenURL("https://en.wikipedia.org/wiki/Skull");
-                        }
                     }
                 }
             }
@@ -95,6 +91,26 @@ public class TouchController : MonoBehaviour
             headerSprite = frontalBoneSprite;
             return true;
         }
+        else if (colliderName.Equals("LacrimalCollider"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Lacrimal_bone");
+            return false;
+        }
+        else if (colliderName.Equals("PalatineCollider"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Palatine_bone");
+            return false;
+        }
+        else if (colliderName.Equals("VomerCollider"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Vomer");
+            return false;
+        }
+        else if (colliderName.Equals("NasalConchaCollider"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Inferior_nasal_concha");
+            return false;
+        }
         return false;
     }
 
@@ -105,7 +121,7 @@ public class TouchController : MonoBehaviour
         string labelText = texture.name;
         if (labelText.Equals("NoseLabel"))
         {
-            Application.OpenURL("https://en.wikipedia.org/wiki/Human_nose");
+            Application.OpenURL("https://en.wikipedia.org/wiki/Nasal_bone");
         }
         else if (labelText.Equals("ZygomaticLabel"))
         {

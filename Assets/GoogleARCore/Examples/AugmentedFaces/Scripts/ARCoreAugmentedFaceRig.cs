@@ -85,8 +85,10 @@ namespace GoogleARCore.Examples.AugmentedFaces
         public void Start()
         {
             labels = new List<GameObject>();
-            labels.Add(GameObject.Find("LabelPrefab (1)"));
-            labels.Add(GameObject.Find("LabelPrefab (2)"));
+            labels.Add(GameObject.Find("PalatineLabel"));
+            labels.Add(GameObject.Find("LacrimalLabel"));
+            labels.Add(GameObject.Find("VomerLabel"));
+            labels.Add(GameObject.Find("NasalConchaLabel"));
         }
 
         /// <summary>
