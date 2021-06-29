@@ -53,7 +53,6 @@ namespace GoogleARCore.Examples.AugmentedFaces
         private List<GameObject> labels;
         private Animator animator;
 
-
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
         /// </summary>
