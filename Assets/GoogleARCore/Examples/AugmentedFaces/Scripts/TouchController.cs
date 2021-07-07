@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public class TouchController : MonoBehaviour
     private float timeTouchEnded;
     private float displayTime = 0.5f;
     private Vector2[] touches = new Vector2[5];
-    private RaycastHit2D hit;
+    private RaycastHit hit;
     private Sprite headerSprite;
     public Sprite noseSprite;
     public Sprite jawSprite;
@@ -28,8 +29,15 @@ public class TouchController : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
-        headerSprite = GameObject.Find("HeaderLabel").transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+        headerSprite = GameObject.Find("HeaderButton").GetComponent<Image>().sprite;
+        GameObject.Find("HeaderButton").GetComponent<Button>().onClick.AddListener(TaskOnClick);
     }
+
+    private void TaskOnClick()
+    {
+        CheckHeaderLabel();
+    }
+
     void Update()
     {
         
@@ -45,14 +53,11 @@ public class TouchController : MonoBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 100))
                     {
+                        this.hit = hit;
                         if (CheckCollider(hit))
                         {
-                            GameObject.Find("HeaderLabel").transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = headerSprite;
+                            GameObject.Find("HeaderButton").GetComponent<Image>().sprite = headerSprite;
                             return;
-                        }
-                        if (hit.transform.parent.name.Equals("HeaderLabel"))
-                        {
-                            CheckHeaderLabel(hit);
                         }
                     }
                 }
@@ -138,12 +143,10 @@ public class TouchController : MonoBehaviour
         return false;
     }
 
-    private static void CheckHeaderLabel(RaycastHit hit)
+    private static void CheckHeaderLabel()
     {
-        SpriteRenderer spriteRenderer = hit.transform.GetComponent<SpriteRenderer>();
-        Texture2D texture = spriteRenderer.sprite.texture;
-        string labelText = texture.name;
-        if (labelText.Equals("NosalLabel"))
+        string labelText = GameObject.Find("HeaderButton").GetComponent<Image>().sprite.name;
+        if (labelText.Equals("NasalLabel"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Nasal_bone");
         }
