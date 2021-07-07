@@ -19,6 +19,10 @@ public class TouchController : MonoBehaviour
     public Sprite maxillaSprite;
     public Sprite orbitSprite;
     public Sprite frontalBoneSprite;
+    public Sprite SphenoidSprite;
+    public Sprite parietalSprite;
+    public Sprite temporalSprite;
+    public Sprite occipitalSprite;
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -91,6 +95,26 @@ public class TouchController : MonoBehaviour
             headerSprite = frontalBoneSprite;
             return true;
         }
+        else if (colliderName.Equals("SphenoidCollider"))
+        {
+            headerSprite = SphenoidSprite;
+            return true;
+        }
+        else if (colliderName.Equals("ParietalCollider"))
+        {
+            headerSprite = parietalSprite;
+            return true;
+        }
+        else if (colliderName.Equals("TemporalCollider"))
+        {
+            headerSprite = temporalSprite;
+            return true;
+        }
+        else if (colliderName.Equals("OccipitalCollider"))
+        {
+            headerSprite = occipitalSprite;
+            return true;
+        }
         else if (colliderName.Equals("LacrimalCollider"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Lacrimal_bone");
@@ -119,7 +143,7 @@ public class TouchController : MonoBehaviour
         SpriteRenderer spriteRenderer = hit.transform.GetComponent<SpriteRenderer>();
         Texture2D texture = spriteRenderer.sprite.texture;
         string labelText = texture.name;
-        if (labelText.Equals("NoseLabel"))
+        if (labelText.Equals("NosalLabel"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Nasal_bone");
         }
@@ -139,9 +163,25 @@ public class TouchController : MonoBehaviour
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Orbit_(anatomy)");
         }
-        else if (labelText.Equals("FrontalBoneLabel"))
+        else if (labelText.Equals("FrontalBone"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Frontal_bone");
+        }
+        else if (labelText.Equals("Sphenoid"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Sphenoid_bone");
+        }
+        else if (labelText.Equals("Parietal"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Parietal_bone");
+        }
+        else if (labelText.Equals("Temporal"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Temporal_bone");
+        }
+        else if (labelText.Equals("Occipital"))
+        {
+            Application.OpenURL("https://en.wikipedia.org/wiki/Occipital_bone");
         }
     }
 }
