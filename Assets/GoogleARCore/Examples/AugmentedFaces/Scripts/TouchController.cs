@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
 
 public class TouchController : MonoBehaviour
 {
 
     private Touch theTouch;
-    private float timeTouchEnded;
-    private float displayTime = 0.5f;
     private Vector2[] touches = new Vector2[5];
     private RaycastHit hit;
     private Sprite headerSprite;
