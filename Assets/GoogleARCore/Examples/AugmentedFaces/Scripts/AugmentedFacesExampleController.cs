@@ -34,6 +34,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
         /// The game object that renders the face attachment on an Augmented Face.
         /// </summary>
         public GameObject FaceAttachment;
+        private bool isMenuActive = true;
 
         /// <summary>
         /// True if the app is in the process of quitting due to an ARCore connection error,
@@ -74,8 +75,12 @@ namespace GoogleARCore.Examples.AugmentedFaces
             else
             {
                 Screen.sleepTimeout = SleepTimeout.NeverSleep;
-                FaceAttachment.SetActive(true);
-                SetActiveAllChildren(FaceAttachment.transform, true);
+                if (!isMenuActive)
+                {
+                    FaceAttachment.SetActive(true);
+                    SetActiveAllChildren(FaceAttachment.transform, true);
+                }
+
             }
         }
         private void SetActiveAllChildren(Transform transform, bool value)
@@ -86,6 +91,10 @@ namespace GoogleARCore.Examples.AugmentedFaces
 
                 SetActiveAllChildren(child, value);
             }
+        }
+        public void ActiveMenu(bool value)
+        {
+            isMenuActive = value;
         }
         /// <summary>
         /// Check and update the application lifecycle.
