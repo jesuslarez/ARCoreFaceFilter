@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 743287374933548380}
   - component: {fileID: 8594843827018495137}
   - component: {fileID: 3658663381147137048}
+  - component: {fileID: 7649308594803404423}
   m_Layer: 0
   m_Name: Jaw
   m_TagString: Untagged
@@ -162,6 +163,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 0
   m_Mesh: {fileID: -7933205989634994717, guid: ac1552c0f56c62340a73902894ea8a90, type: 3}
+--- !u!114 &7649308594803404423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3658663381147137051}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &4099324289059417204
 GameObject:
   m_ObjectHideFlags: 0

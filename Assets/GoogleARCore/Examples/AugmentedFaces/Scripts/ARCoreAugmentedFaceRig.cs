@@ -49,7 +49,6 @@ namespace GoogleARCore.Examples.AugmentedFaces
             new Dictionary<AugmentedFaceRegion, Transform>();
 
         private List<Vector3> vertices;
-        private List<Vector2> facecoordinates;
         private List<GameObject> labels;
         private Animator animator;
 
@@ -115,10 +114,14 @@ namespace GoogleARCore.Examples.AugmentedFaces
                 return;
             }
             UpdateRegions();
-            UpdateLabels();
+            
             if (animator != null)
             {
                 animator.SetBool("MouthOpen", CheckForMouthOpen());
+            }
+            else
+            {
+                UpdateLabels();
             }
             
         }
@@ -150,7 +153,6 @@ namespace GoogleARCore.Examples.AugmentedFaces
                     break;
                 }
                 float angle = Vector3.Angle(cameraForward, labelForward);
-                print(angle);
                 if (angle > 25f && product.y > 0f && labels.IndexOf(label) % 2 == 0)
                 {
                     SetActiveAllChildren(label.transform, false);
