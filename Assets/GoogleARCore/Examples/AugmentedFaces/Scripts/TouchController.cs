@@ -164,21 +164,24 @@ public class TouchController : MonoBehaviour
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Frontal_bone");
         }
-        else if (labelText.Equals("Sphenoid"))
+        else if (labelText.Equals("SphenoidLabel"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Sphenoid_bone");
         }
-        else if (labelText.Equals("Parietal"))
+        else if (labelText.Equals("ParietalLabel"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Parietal_bone");
         }
-        else if (labelText.Equals("Temporal"))
+        else if (labelText.Equals("TemporalLabel"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Temporal_bone");
         }
-        else if (labelText.Equals("Occipital"))
+        else if (labelText.Equals("OccipitalLabel"))
         {
             Application.OpenURL("https://en.wikipedia.org/wiki/Occipital_bone");
+        }else if(labelText.Equals("NoFacesDetectedSprite"))
+        {
+            return;
         }
     }
 }

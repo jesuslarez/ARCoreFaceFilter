@@ -5,20 +5,31 @@ using UnityEngine;
 public class AppController : MonoBehaviour
 {
     [SerializeField]
+    public GameObject menuPanel;
+    [SerializeField]
     public GameObject mainMenu;
     [SerializeField]
-    public GameObject faceFilter;
-    private void Awake()
+    public GameObject aboutPanel;
+    public void Play(bool value)
     {
-        //Time.timeScale = 0.0f;
-    }
-    public void Play()
-    {
-        mainMenu.SetActive(false);
-      //  Time.timeScale = 1.0f;
+        menuPanel.SetActive(value);
     }
     public void Quit()
     {
         Application.Quit();
+    }
+    public void About()
+    {
+        mainMenu.SetActive(false);
+        aboutPanel.SetActive(true);
+    }
+    public void MainMenu()
+    {
+        mainMenu.SetActive(true);
+        aboutPanel.SetActive(false);
+    }
+    public void Repository()
+    {
+        Application.OpenURL("https://github.com/jesuslarez/ARCoreFaceFilter");
     }
 }

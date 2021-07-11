@@ -34,8 +34,9 @@ namespace GoogleARCore.Examples.AugmentedFaces
         /// The game object that renders the face attachment on an Augmented Face.
         /// </summary>
         public GameObject FaceAttachment;
+        public Sprite noFacesDetectedSprite;
         private bool isMenuActive = true;
-
+        public Sprite headerSprite;
         /// <summary>
         /// True if the app is in the process of quitting due to an ARCore connection error,
         /// otherwise false.
@@ -70,7 +71,7 @@ namespace GoogleARCore.Examples.AugmentedFaces
                 Screen.sleepTimeout = SleepTimeout.SystemSetting;
                 SetActiveAllChildren(FaceAttachment.transform, false);
                 FaceAttachment.SetActive(false);
-
+                GameObject.Find("HeaderButton").GetComponent<Image>().sprite = noFacesDetectedSprite;
             }
             else
             {
@@ -79,6 +80,15 @@ namespace GoogleARCore.Examples.AugmentedFaces
                 {
                     FaceAttachment.SetActive(true);
                     SetActiveAllChildren(FaceAttachment.transform, true);
+                    if (GameObject.Find("HeaderButton").GetComponent<Image>().sprite == noFacesDetectedSprite)
+                    {
+                        GameObject.Find("HeaderButton").GetComponent<Image>().sprite = headerSprite;
+                    }
+                }
+                else
+                {
+                    FaceAttachment.SetActive(false);
+                    SetActiveAllChildren(FaceAttachment.transform, false);
                 }
 
             }
