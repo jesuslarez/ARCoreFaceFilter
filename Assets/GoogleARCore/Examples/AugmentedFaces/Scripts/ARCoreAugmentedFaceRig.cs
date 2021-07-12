@@ -49,9 +49,8 @@ namespace GoogleARCore.Examples.AugmentedFaces
             new Dictionary<AugmentedFaceRegion, Transform>();
 
         private List<Vector3> vertices;
-        private List<Vector2> facecoordinates;
         private List<GameObject> labels;
-
+        private Animator animator;
 
         /// <summary>
         /// Gets or sets the ARCore AugmentedFace object that will be used to update the face region.
@@ -77,13 +76,17 @@ namespace GoogleARCore.Examples.AugmentedFaces
         {
             
             augmentedFaceList = new List<AugmentedFace>();
+            animator = gameObject.GetComponent<Animator>();
+            vertices = new List<Vector3>();
             InitializeFaceRegions();
         }
         public void Start()
         {
             labels = new List<GameObject>();
-            labels.Add(GameObject.Find("LabelPrefab (1)"));
-            labels.Add(GameObject.Find("LabelPrefab (2)"));
+            labels.Add(GameObject.Find("PalatineLabel"));
+            labels.Add(GameObject.Find("LacrimalLabel"));
+            labels.Add(GameObject.Find("VomerLabel"));
+            labels.Add(GameObject.Find("NasalConchaLabel"));
         }
 
         /// <summary>
@@ -111,11 +114,33 @@ namespace GoogleARCore.Examples.AugmentedFaces
                 return;
             }
             UpdateRegions();
-            UpdateLabels();
-
+            
+            if (animator != null)
+            {
+                animator.SetBool("MouthOpen", CheckForMouthOpen());
+            }
+            else
+            {
+                UpdateLabels();
+            }
+            
         }
 
-
+        private bool CheckForMouthOpen()
+        {
+            foreach (AugmentedFace face in augmentedFaceList)
+            {
+                face.GetVertices(vertices);
+            }
+            Vector3 upperLip = vertices[0];
+            Vector3 lowerLip = vertices[14];
+            double distance = Vector3.Distance(upperLip, lowerLip);
+            if (Vector3.Distance(upperLip , lowerLip) > 0.03f)
+            {
+                return true;
+            }
+            return false;
+        }
         private void UpdateLabels()
         {
             foreach (GameObject label in labels)
@@ -128,7 +153,6 @@ namespace GoogleARCore.Examples.AugmentedFaces
                     break;
                 }
                 float angle = Vector3.Angle(cameraForward, labelForward);
-                print(angle);
                 if (angle > 25f && product.y > 0f && labels.IndexOf(label) % 2 == 0)
                 {
                     SetActiveAllChildren(label.transform, false);
