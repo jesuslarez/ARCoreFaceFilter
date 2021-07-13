@@ -15,8 +15,6 @@ public class AppController : MonoBehaviour
     public GameObject settingsPanel;
     [SerializeField]
     public GameObject gameUI;
-
-    public Material material;
     public void Play(bool value)
     {
         if (value)
@@ -30,10 +28,6 @@ public class AppController : MonoBehaviour
             gameUI.SetActive(false);
         }
 
-    }
-    public void Quit()
-    {
-        Application.Quit();
     }
     public void About()
     {

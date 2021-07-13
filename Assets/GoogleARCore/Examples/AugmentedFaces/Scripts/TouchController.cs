@@ -8,6 +8,7 @@ public class TouchController : MonoBehaviour
     private Vector2[] touches = new Vector2[5];
     private RaycastHit hit;
     private Sprite headerSprite;
+    public Button headerButton;
     public Sprite noseSprite;
     public Sprite jawSprite;
     public Sprite zygomaticSprite;
@@ -20,18 +21,17 @@ public class TouchController : MonoBehaviour
     public Sprite occipitalSprite;
     // Start is called before the first frame update
 
-    // Update is called once per frame
     private void Start()
     {
         headerSprite = GameObject.Find("HeaderButton").GetComponent<Image>().sprite;
-        GameObject.Find("HeaderButton").GetComponent<Button>().onClick.AddListener(TaskOnClick);
     }
 
-    private void TaskOnClick()
+    public void TaskOnClick()
     {
         CheckHeaderLabel();
     }
 
+    // Update is called once per frame
     void Update()
     {
         
